@@ -4,18 +4,21 @@ import axios from 'axios';
 import OwlCarousel from 'react-owl-carousel';
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
+import CollSkeleton from '../../components/UI/CollSkeleton';
 
 const HotCollections = () => {
 
-  const [art, setArt] = useState([]);  
+  const [art, setArt] = useState([]); 
+  const [loading, setLoading] = useState(true); 
 
   useEffect(() => {
     async function getArt() {
+      setLoading(true);
       const { data } = await axios.get(
         `https://us-central1-nft-cloud-functions.cloudfunctions.net/hotCollections`
       );
-      setArt(data);  
-      console.log(data)
+      setArt(data);
+      setLoading(false);  
     }
 
   getArt();
@@ -33,7 +36,7 @@ const HotCollections = () => {
                 <div className="small-border bg-color-2"></div>
               </div>
             </div>
-            {art.length > 0 && (
+
             <OwlCarousel
               className="owl-theme"
               loop
@@ -47,8 +50,11 @@ const HotCollections = () => {
                 1200: { items: 4 },
               }}
             >
-              {art.map((item) => (
-                <div key={item.id}>
+              {loading ? (
+              <CollSkeleton />
+              ) : art.length > 0 ? (
+              art.map((item) => (
+                <div className="nft_card" key={item.id}>
                   <div className="nft_coll">
                     <div className="nft_wrap">
                       <Link to={`/item-details/${item.nftId}`}>
@@ -68,10 +74,10 @@ const HotCollections = () => {
                       <span>ERC-{item.code}</span>
                     </div>
                   </div>
-                </div>
-              ))}
-            </OwlCarousel>
-            )}
+                </div>               
+                ))
+              ) : null}
+              </OwlCarousel>
           </div>
         </div>
       </section>
