@@ -25,7 +25,7 @@ const ItemDetails = () => {
     setArt(data);
     setTimeout(() => {
       setLoading(false);
-    }, 100000);
+    }, 1000);
   } catch (error) {
     console.error("Error fetching details.", error);
   }
