@@ -21,7 +21,7 @@ const HotCollections = () => {
       setArt(data);
       setTimeout(() => {
         setLoading(false);
-      }, 500);
+      }, 1000);
     } catch (error) {
       console.error("Error fetching collections:", error);
     } 
