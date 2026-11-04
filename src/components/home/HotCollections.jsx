@@ -14,13 +14,18 @@ const HotCollections = () => {
   useEffect(() => {
     async function getArt() {
       setLoading(true);
+      try {
       const { data } = await axios.get(
         `https://us-central1-nft-cloud-functions.cloudfunctions.net/hotCollections`
       );
       setArt(data);
-      setLoading(false);  
-    }
-
+      setTimeout(() => {
+        setLoading(false);
+      }, 500);
+    } catch (error) {
+      console.error("Error fetching collections:", error);
+    } 
+  }
   getArt();
   
   }, [])
@@ -36,7 +41,9 @@ const HotCollections = () => {
                 <div className="small-border bg-color-2"></div>
               </div>
             </div>
-
+              {loading ? (
+                <CollSkeleton />
+              ) : art.length > 0 ? (
             <OwlCarousel
               className="owl-theme"
               loop
@@ -50,15 +57,12 @@ const HotCollections = () => {
                 1200: { items: 4 },
               }}
             >
-              {loading ? (
-              <CollSkeleton />
-              ) : art.length > 0 ? (
-              art.map((item) => (
+              {art.map((item) => (
                 <div className="nft_card" key={item.id}>
                   <div className="nft_coll">
                     <div className="nft_wrap">
                       <Link to={`/item-details/${item.nftId}`}>
-                        <img src={item.nftImage} className="lazy img-fluid" alt="" />
+                        <img src={item.nftImage} className="img-fluid" alt="" />
                       </Link>
                     </div>
                     <div className="nft_coll_pp">
@@ -74,10 +78,12 @@ const HotCollections = () => {
                       <span>ERC-{item.code}</span>
                     </div>
                   </div>
-                </div>               
-                ))
-              ) : null}
+                </div>
+                ))}               
               </OwlCarousel>
+              ) : (
+                <p>No Collections found.</p>
+              )}
           </div>
         </div>
       </section>

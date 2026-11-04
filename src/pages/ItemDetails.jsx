@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import EthImage from "../images/ethereum.svg";
 import { Link, useParams } from "react-router-dom";
-import axios from "axios"
+import axios from "axios";
+import ItemSkeleton from "../components/UI/ItemSkeleton";
+
 
 const ItemDetails = () => {
   useEffect(() => {
@@ -11,14 +13,22 @@ const ItemDetails = () => {
   const { id } = useParams();
   console.log(id);
   const [art, setArt] = useState(null);
+  const [loading, setLoading] = useState(true);
 
 
   async function fetchArt () {
+    setLoading(true);
+    try {
     const { data } = await axios.get(
       `https://us-central1-nft-cloud-functions.cloudfunctions.net/itemDetails?nftId=${id}`
     );
-    console.log(data);
     setArt(data);
+    setTimeout(() => {
+      setLoading(false);
+    }, 100000);
+  } catch (error) {
+    console.error("Error fetching details.", error);
+  }
   }
 
   useEffect(() => {
@@ -28,6 +38,9 @@ const ItemDetails = () => {
   if(!art) return null;
   return (
     <>
+    {loading ? (
+      <ItemSkeleton />
+    ) : art ? (
     <div id="wrapper">
       <div className="no-bottom no-top" id="content">
         <div id="top"></div>
@@ -103,6 +116,9 @@ const ItemDetails = () => {
         </section>
       </div>
     </div>
+    ) : (
+      <p>No details found</p>
+    )}
     </>
   );
 };
