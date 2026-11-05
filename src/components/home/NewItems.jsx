@@ -5,11 +5,16 @@ import OwlCarousel from 'react-owl-carousel';
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
 import NewSkeleton from '../../components/UI/NewSkeleton';
+import { Countdown } from "../UI/Countdown";
 
 const NewItems = () => {
 
   const [newArt, setNewArt] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const eventDate = Math.floor(
+    new Date('6:00:00').getTime() / 1000
+  );
     
   useEffect(() => {
       async function getArt() {
@@ -28,6 +33,7 @@ const NewItems = () => {
         }
       }
       getArt();
+
     }, []);
   return (
     <>
@@ -70,7 +76,11 @@ const NewItems = () => {
                       <i className="fa fa-check"></i>
                     </Link>
                   </div>
-                  <div className="de_countdown">5h 30m 32s</div>
+                  {item.expiryDate > Date.now() && (
+                    <div className="de_countdown">
+                      <Countdown targetUnixTimestamp={item.expiryDate} />
+                    </div>
+                  )}
 
                   <div className="nft__item_wrap">
                     <div className="nft__item_extra">
