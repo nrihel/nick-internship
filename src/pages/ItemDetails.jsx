@@ -11,7 +11,6 @@ const ItemDetails = () => {
   }, []);
 
   const { id } = useParams();
-  console.log(id);
   const [art, setArt] = useState(null);
   const [loading, setLoading] = useState(true);
 
