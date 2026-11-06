@@ -13286,7 +13286,10 @@ a.read_more i {
 
 .author_list li {
   position: relative;
+  display: flex;
+  align-items: center;
   margin-bottom: 30px;
+  min-height: 60px;
 }
 
 .author_list_pp {
@@ -16866,6 +16869,88 @@ img {
   height: 25px;
   padding: 8px;
 }
+
+/* Top Sellers skeleton */
+
+.top_skeleton {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: repeat(4, auto);
+  gap: 10px;
+  list-style: none;
+  width: 100%;
+}
+.top_skeleton_row {
+  width: 100%;
+}
+.skeleton_link {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.top_author_list {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.top_skeleton_list {
+  margin-top: 2px;
+  display: inline-block;
+  width: 50px;
+  height: auto;
+  margin-left: 10px;
+  z-index: 10;
+}
+.top_skeleton_list_pp {
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 10px;
+  flex-shrink: 0;
+}
+.top_skeleton_pp {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: solid 5px #ffffff;
+}
+.top_skeleton_check {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  width: 15px;
+  height: 15px;
+  background-color: #8364e2;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 8px;
+}
+.top_skeleton_info {
+  display: flex;
+  flex-direction: column;
+  margin-left: 15px;
+}
+.top_skeleton_name {
+  width: 110px;
+  height: 16px;
+  border-radius: 4px;
+}
+.top_skeleton_tag {
+  width: 70px;
+  height: 14px;
+  margin-top: 8px;
+  border-radius: 4px;
+}
+
 
 /* ItemDetails skeleton */
 .item_section {
