@@ -1,28 +1,24 @@
 import React from 'react'
+import Skeleton from './Skeleton';
 
 const TopSkeleton = () => {
   return (
     <>
-            <div className="container">
-              <div className="row">  
-                <div className="col-md-12">               
-                  <ol className="author_list">
-                    {new Array(12).fill(0).map((_, index) => (
-                    <li key={index}>
-                        <div className="author_list_pp">
-                            <div className="top_skeleton_pp skeleton-box"></div>
-                            <i className="fa fa-check top_skeleton_check"></i>
-                        </div>
-                        <div className="author_list_info">
-                            <div className="top_skeleton_name skeleton-box"></div>
-                            <div className="top_skeleton_tag skeleton-box"></div>
-                        </div>
-                    </li>
-                    ))}
-                  </ol>
-                </div>
-              </div>
-            </div>
+        {new Array(12).fill(0).map((_, index) => (
+        <li key={index}>
+          <div className="author_list_pp">
+            <Skeleton width="50px" height="50px" borderRadius="50%" />
+            <i className="fa fa-check"></i>
+          </div>
+          <div className="author_list_info">
+            <Skeleton width="100px" height="20px" />
+            <span>
+              <Skeleton width="40px" height="20px" />
+            </span>
+          </div>
+        </li>
+      ))}
+                  
     </>
   )
 }
