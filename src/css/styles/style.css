@@ -16722,6 +16722,12 @@ img {
 .skeleton_btn-right {
   right: -20px;
 }
+.skeleton_grid-container {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(240px, 1fr));
+  gap: 20px;
+  width: 100%;
+}
 .skeleton_row-wrapper {
   display: grid;
   grid-template-columns: repeat(4, minmax(280px, 1fr));
@@ -16733,8 +16739,7 @@ img {
 .skeleton_card {
   height: 307px;
   width: 100%;
-  margin-left: 4px;
-  margin-right: 4px;
+  margin: 8px;
 }
 
 .skeleton_card-wrapper {
