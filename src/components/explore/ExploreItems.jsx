@@ -26,7 +26,7 @@ const ExploreItems = () => {
 
     setTimeout(() => {
       setLoading(false);
-    }, 100000);
+    }, 1000);
     } catch (error) {
       console.error("Error fetching Art",error);
     };
