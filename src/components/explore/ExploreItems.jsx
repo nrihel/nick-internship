@@ -1,20 +1,60 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import AuthorImage from "../../images/author_thumbnail.jpg";
-import nftImage from "../../images/nftImage.jpg";
+import { useState, useEffect } from "react";
+import { Link, useSearchParams } from "react-router-dom";
+import axios from "axios";
+import { Countdown } from "../UI/Countdown";
+import ExploreSkeleton from "../UI/ExploreSkeleton";
+import LoadMoreButton from "../UI/LoadMore"
 
 const ExploreItems = () => {
+
+    const [getArt, setGetArt] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [visibleCount, setVisibleCount] = useState(8);
+    const [filterValue, setFilterValue] = useState("");
+
+  useEffect(() => {
+  async function art() {
+    setLoading(true);
+    try {
+      let url = "https://us-central1-nft-cloud-functions.cloudfunctions.net/explore";
+      if (filterValue) {
+        url +=  `?filter=${filterValue}`;
+      }
+
+    const { data } = await axios.get(url);
+    setGetArt(data);
+
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+    } catch (error) {
+      console.error("Error fetching Art",error);
+    };
+  }
+
+  art();
+}, [filterValue]);
+
+const handleFilterChange = (event) => {
+  setFilterValue(event.target.value);
+}
+
+const displayedItems = getArt.slice(0, visibleCount);
+
   return (
     <>
       <div>
-        <select id="filter-items" defaultValue="">
+        <select id="filter-items" value={filterValue} onChange={handleFilterChange}>
           <option value="">Default</option>
           <option value="price_low_to_high">Price, Low to High</option>
           <option value="price_high_to_low">Price, High to Low</option>
           <option value="likes_high_to_low">Most liked</option>
         </select>
       </div>
-      {new Array(8).fill(0).map((_, index) => (
+      {loading ? (
+        <ExploreSkeleton/> 
+      ) : displayedItems.length > 0 ? (
+      displayedItems.map((item, index) => (
         <div
           key={index}
           className="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12"
@@ -23,16 +63,19 @@ const ExploreItems = () => {
           <div className="nft__item">
             <div className="author_list_pp">
               <Link
-                to="/author"
+                to={`/author/${item.authorId}`}
                 data-bs-toggle="tooltip"
                 data-bs-placement="top"
               >
-                <img className="lazy" src={AuthorImage} alt="" />
+                <img className="lazy" src={item.authorImage} alt="" />
                 <i className="fa fa-check"></i>
               </Link>
             </div>
-            <div className="de_countdown">5h 30m 32s</div>
-
+            {item.expiryDate > Date.now() && (
+            <div className="de_countdown">
+              <Countdown targetUnixTimestamp={item.expiryDate} />
+            </div>
+            )}
             <div className="nft__item_wrap">
               <div className="nft__item_extra">
                 <div className="nft__item_buttons">
@@ -51,27 +94,36 @@ const ExploreItems = () => {
                   </div>
                 </div>
               </div>
-              <Link to="/item-details">
-                <img src={nftImage} className="lazy nft__item_preview" alt="" />
+              <Link to={`/item-details/${item.nftId}`}>
+                <img src={item.nftImage} className="lazy nft__item_preview" alt="" />
               </Link>
             </div>
             <div className="nft__item_info">
-              <Link to="/item-details">
-                <h4>Pinky Ocean</h4>
+              <Link to={`/item-details/${item.nftId}`}>
+                <h4>{item.title}</h4>
               </Link>
-              <div className="nft__item_price">1.74 ETH</div>
+              <div className="nft__item_price">{item.price} ETH</div>
               <div className="nft__item_like">
                 <i className="fa fa-heart"></i>
-                <span>69</span>
+                <span>{item.likes}</span>
               </div>
             </div>
           </div>
         </div>
-      ))}
+      ))
+    ) : (
+      <p>No Art Found.</p>
+    )}
+
       <div className="col-md-12 text-center">
-        <Link to="" id="loadmore" className="btn-main lead">
-          Load more
-        </Link>
+        {getArt.length > 0 && visibleCount < getArt.length && (
+          <LoadMoreButton
+            totalCount={getArt.length}
+            visibleCount={visibleCount}
+            setVisibleCount={setVisibleCount}
+            className="btn-main lead"
+          />   
+        )}    
       </div>
     </>
   );
