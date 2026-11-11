@@ -6,6 +6,9 @@ import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
 import NewSkeleton from '../../components/UI/NewSkeleton';
 import { Countdown } from "../UI/Countdown";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+AOS.init();
 
 const NewItems = () => {
 
@@ -39,7 +42,7 @@ const NewItems = () => {
     <>
       <section id="section-items" className="no-bottom">
         <div className="container">
-          <div className="row">
+          <div className="row" data-aos="zoom-in">
             <div className="col-lg-12">
               <div className="text-center">
                 <h2>New Items</h2>
@@ -129,6 +132,10 @@ const NewItems = () => {
             )}
           </div>
         </div>
+        <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+        <script>
+          AOS.init();
+        </script>
       </section>
     </>  
   );

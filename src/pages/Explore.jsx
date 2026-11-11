@@ -1,6 +1,9 @@
 import React, { useEffect } from "react";
 import SubHeader from "../images/subheader.jpg";
 import ExploreItems from "../components/explore/ExploreItems";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+AOS.init();
 
 const Explore = () => {
 
@@ -17,6 +20,9 @@ const Explore = () => {
           id="subheader"
           className="text-light"
           style={{ background: `url("${SubHeader}") top` }}
+          data-aos="fade-down"
+          data-aos-easing="linear"
+          data-aos-duration="1500"
         >
           <div className="center-y relative text-center">
             <div className="container">
@@ -38,6 +44,10 @@ const Explore = () => {
           </div>
         </section>
       </div>
+      <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+      <script>
+        AOS.init();
+      </script>
     </div>
   );
 };

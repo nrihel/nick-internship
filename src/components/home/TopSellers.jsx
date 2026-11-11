@@ -2,6 +2,9 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import TopSkeleton from "../UI/TopSkeleton";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+AOS.init();
 
 const TopSellers = () => {
 
@@ -31,7 +34,7 @@ const TopSellers = () => {
     <>
       <section id="section-popular" className="pb-5">
         <div className="container">
-          <div className="row">
+          <div className="row" data-aos="fade-up">
             <div className="col-lg-12">
               <div className="text-center">
                 <h2>Top Sellers</h2>
@@ -68,6 +71,10 @@ const TopSellers = () => {
             </div>
           </div>
         </div>
+        <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+        <script>
+          AOS.init();
+        </script>
       </section>
     </>
   );

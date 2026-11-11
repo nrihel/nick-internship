@@ -5,6 +5,9 @@ import OwlCarousel from 'react-owl-carousel';
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
 import CollSkeleton from '../../components/UI/CollSkeleton';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+AOS.init();
 
 const HotCollections = () => {
 
@@ -34,7 +37,7 @@ const HotCollections = () => {
     <>
       <section id="section-collections" className="no-bottom">
         <div className="container">
-          <div className="row">
+          <div className="row" data-aos="zoom-out-up">
             <div className="col-lg-12">
               <div className="text-center">
                 <h2>Hot Collections</h2>
@@ -86,6 +89,10 @@ const HotCollections = () => {
               )}
           </div>
         </div>
+        <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+        <script>
+          AOS.init();
+        </script>
       </section>
     </>
   );
