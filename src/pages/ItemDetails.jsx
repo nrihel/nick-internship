@@ -17,7 +17,8 @@ const ItemDetails = () => {
   const [art, setArt] = useState(null);
   const [loading, setLoading] = useState(true);
 
-
+useEffect(() => {
+  
   async function fetchArt () {
     setLoading(true);
     try {
@@ -33,7 +34,6 @@ const ItemDetails = () => {
     }
   }
 
-  useEffect(() => {
     fetchArt();
   }, [id])
 

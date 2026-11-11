@@ -15,6 +15,7 @@ const Author = () => {
   const [isFollowing, setIsFollowing] = useState(false);
   const [followerCount, setFollowerCount] = useState(0);
 
+useEffect(() => {
   async function getArtist () {
     setLoading(true);
     try {
@@ -31,7 +32,6 @@ const Author = () => {
     }
   }
 
-  useEffect(() => {
     getArtist();
   }, [authorId]);
 
