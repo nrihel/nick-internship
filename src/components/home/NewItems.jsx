@@ -6,15 +6,14 @@ import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
 import NewSkeleton from '../../components/UI/NewSkeleton';
 import { Countdown } from "../UI/Countdown";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+AOS.init();
 
 const NewItems = () => {
 
   const [newArt, setNewArt] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  const eventDate = Math.floor(
-    new Date('6:00:00').getTime() / 1000
-  );
     
   useEffect(() => {
       async function getArt() {
@@ -39,7 +38,7 @@ const NewItems = () => {
     <>
       <section id="section-items" className="no-bottom">
         <div className="container">
-          <div className="row">
+          <div className="row" data-aos="zoom-in">
             <div className="col-lg-12">
               <div className="text-center">
                 <h2>New Items</h2>
@@ -88,13 +87,13 @@ const NewItems = () => {
                         <button>Buy Now</button>
                         <div className="nft__item_share">
                           <h4>Share</h4>
-                          <a href="" target="_blank" rel="noreferrer">
+                          <a href="https://www.facebook.com" target="_blank" rel="noreferrer">
                             <i className="fa fa-facebook fa-lg"></i>
                           </a>
-                          <a href="" target="_blank" rel="noreferrer">
+                          <a href="https://www.twitter.com" target="_blank" rel="noreferrer">
                             <i className="fa fa-twitter fa-lg"></i>
                           </a>
-                          <a href="">
+                          <a href="mailto:">
                             <i className="fa fa-envelope fa-lg"></i>
                           </a>
                         </div>
@@ -129,6 +128,10 @@ const NewItems = () => {
             )}
           </div>
         </div>
+        <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+        <script>
+          AOS.init();
+        </script>
       </section>
     </>  
   );

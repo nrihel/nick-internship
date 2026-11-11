@@ -1,8 +1,11 @@
 import React from "react";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+AOS.init();
 
 const LandingIntro = () => {
   return (
-    <section id="section-intro" className="no-top no-bottom">
+    <section id="section-intro" className="no-top no-bottom" data-aos="fade-left">
       <div className="container">
         <div className="row">
           <div className="col-lg-4 col-md-6 mb-sm-30">
@@ -46,6 +49,10 @@ const LandingIntro = () => {
           </div>
         </div>
       </div>
+      <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+      AOS.init();
+    </script>
     </section>
   );
 };

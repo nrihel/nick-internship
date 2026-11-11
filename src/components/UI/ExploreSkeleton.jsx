@@ -1,5 +1,4 @@
 import React from 'react'
-import Skeleton from './Skeleton';
 
 const ExploreSkeleton = () => {
   return (

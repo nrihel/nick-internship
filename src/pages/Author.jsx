@@ -4,6 +4,9 @@ import AuthorItems from "../components/author/AuthorItems";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import AuthorSkeleton from "../components/UI/AuthorSkeleton";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+AOS.init();
 
 const Author = () => {
   const { authorId } = useParams();
@@ -12,6 +15,7 @@ const Author = () => {
   const [isFollowing, setIsFollowing] = useState(false);
   const [followerCount, setFollowerCount] = useState(0);
 
+useEffect(() => {
   async function getArtist () {
     setLoading(true);
     try {
@@ -28,7 +32,6 @@ const Author = () => {
     }
   }
 
-  useEffect(() => {
     getArtist();
   }, [authorId]);
 
@@ -57,6 +60,9 @@ const Author = () => {
             className="text-light"
             data-bgimage="url(images/author_banner.jpg) top"
             style={{ background: `url(${AuthorBanner}) top` }}
+            data-aos="fade-down"
+            data-aos-easing="linear"
+            data-aos-duration="1500"
           ></section>
           {loading ? (
             <AuthorSkeleton/>
@@ -109,6 +115,10 @@ const Author = () => {
         )}
         </div>
       </div>
+      <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+      <script>
+        AOS.init();
+      </script>
     </>
   );
 };

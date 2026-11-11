@@ -1,11 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+AOS.init();
 
 const BrowseByCategory = () => {
   return (
     <section id="section-category" className="no-top">
       <div className="container">
-        <div className="row">
+        <div className="row" data-aos="fade-left">
           <div className="col-lg-12">
             <div className="text-center">
               <h2>Browse by category</h2>
@@ -50,6 +53,10 @@ const BrowseByCategory = () => {
           </div>
         </div>
       </div>
+      <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+      AOS.init();
+    </script>
     </section>
   );
 };
