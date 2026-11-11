@@ -9,6 +9,8 @@ const AuthorItems = () => {
   const [artist, setArtist] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    
   async function getArtist () {
     setLoading(true);
     try {
@@ -24,7 +26,7 @@ const AuthorItems = () => {
     }
   }
 
-  useEffect(() => {
+
     getArtist();
   }, [authorId]);
 
